@@ -6,6 +6,5 @@ import re
 
 def filter_datum(fields, redaction, message, seperator):
     for field in fields:
-        pattern = r"(?<={}=)[^{}]*".format(field, seperator)
-        message = re.sub(pattern, redaction, message)
+        message = re.sub(r"(?<={}=)[^{}]*".format(field, seperator), redaction, message)
     return message
