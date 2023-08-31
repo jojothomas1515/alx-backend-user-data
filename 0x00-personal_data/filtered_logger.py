@@ -5,6 +5,7 @@ import re
 
 
 def filter_datum(fields, redaction, message, seperator):
+    """THis si a documentation."""
     for field in fields:
         message = re.sub(r"(?<={}=)[^{}]*".format(field, seperator),
                          redaction, message)
