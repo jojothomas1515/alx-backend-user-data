@@ -39,5 +39,7 @@ class RedactingFormatter(logging.Formatter):
         :arg record: the message to format
         :return: formatted message
         """
+        message = super().format(record)
         return filter_datum(self.fields, self.REDACTION,
-                            record.getMessage(), self.SEPARATOR)
+                            message, self.SEPARATOR)
+
