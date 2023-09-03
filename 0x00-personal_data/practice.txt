@@ -1,0 +1,2 @@
+[HOLBERTON] root WARNING 2023-09-03 12:51:48,602: This is a warning
+[HOLBERTON] root INFO 2023-09-03 12:51:48,602: This is a INFO
