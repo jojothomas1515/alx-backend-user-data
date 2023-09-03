@@ -59,11 +59,11 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     """Create mysql connection from environmental variable."""
     username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     passwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    dbhost = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     dbname = os.getenv("PERSONAL_DATA_DB_NAME", "holberton")
 
-    connection = mysql.connector.connect(username=username,
-                                         database=dbname,
-                                         host=dbhost,
-                                         passwd=passwd)
+    connection = mysql.connector.MySQLConnection(
+        user=username, database=dbname, password=passwd,
+        host=host
+    )
     return connection
