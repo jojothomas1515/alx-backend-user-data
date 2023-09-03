@@ -2,6 +2,7 @@
 """This is it."""
 import re
 from typing import List
+import logging
 
 pattern = "(?<={}=)[^{}]*"
 
@@ -18,12 +19,8 @@ def filter_datum(fields: List[str],
     return message
 
 
-import logging
-
-
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """ Redacting Formatter class"""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
@@ -44,6 +41,6 @@ class RedactingFormatter(logging.Formatter):
         :return: formatted message
         """
         message = super().format(record)
-        return filter_datum(self.fields, self.REDACTION,
-                            message, self.SEPARATOR)
-
+        redacted = filter_datum(
+            self.fields, self.REDACTION, message, self.SEPARATOR)
+        return redacted
