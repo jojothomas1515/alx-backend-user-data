@@ -3,8 +3,12 @@
 import re
 from typing import List
 import logging
+import os
+
+import mysql.connector
 
 pattern = "(?<={}=)[^{}]*"
+PII_FIELDS = ("password", "email", "ssn", "phone", "name")
 
 
 def filter_datum(fields: List[str],
@@ -39,9 +43,6 @@ class RedactingFormatter(logging.Formatter):
         return redacted
 
 
-PII_FIELDS = ("password", "email", "ssn", "phone", "name")
-
-
 def get_logger() -> logging.Logger:
     """create a logger"""
     logger = logging.getLogger("user_data")
@@ -52,3 +53,17 @@ def get_logger() -> logging.Logger:
     logger.addHandler(handler)
 
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """Create mysql connection from environmental variable."""
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    passwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    dbhost = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    dbname = os.getenv("PERSONAL_DATA_DB_NAME", "holberton")
+
+    connection = mysql.connector.connect(user=username,
+                                         database=dbname,
+                                         host=dbhost,
+                                         password=dbhost)
+    return connection
