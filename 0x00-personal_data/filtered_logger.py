@@ -27,20 +27,13 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]) -> None:
-        """Constructor method.
-
-        :arg fields: list for fields to redact.
-        """
+        """Constructor method."""
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
+        self.fields: List[str] = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """Redact info on record specified in fields
-
-        :arg record: the message to format
-        :return: formatted message
-        """
-        message = super().format(record)
-        redacted = filter_datum(
+        """Redact info on record specified in fields."""
+        message: str = super().format(record)
+        redacted: str = filter_datum(
             self.fields, self.REDACTION, message, self.SEPARATOR)
         return redacted
