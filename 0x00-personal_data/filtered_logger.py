@@ -4,8 +4,12 @@ import re
 from typing import List
 import logging
 import os
-
 import mysql.connector
+
+username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+passwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+dbname = os.getenv("PERSONAL_DATA_DB_NAME")
 
 pattern = "(?<={}=)[^{}]*"
 PII_FIELDS = ("password", "email", "ssn", "phone", "name")
@@ -57,10 +61,6 @@ def get_logger() -> logging.Logger:
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """Create mysql connection from environmental variable."""
-    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
-    passwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
-    dbname = os.getenv("PERSONAL_DATA_DB_NAME")
     connection = mysql.connector.connection.MySQLConnection(
         user=username, database=dbname, password=passwd,
         host=host
