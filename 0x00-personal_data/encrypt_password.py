@@ -10,4 +10,4 @@ def hash_password(password: str) -> bytes:
         password: the string to encrypt
     Return: Salted hashed bytes string
     """
-    return hashpw(password.encode(), gensalt(12))
+    return hashpw(password.encode(), gensalt())
