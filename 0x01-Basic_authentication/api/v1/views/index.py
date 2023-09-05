@@ -30,3 +30,9 @@ def stats() -> str:
 def unauth() -> None:
     """Route abort with an error code of 401."""
     abort(401)
+
+
+@app_views.route('/forbidden', strict_slashes=False)
+def forbid() -> None:
+    """Route abort with a error code of 403."""
+    abort(403)
