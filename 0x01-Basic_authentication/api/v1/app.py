@@ -19,12 +19,12 @@ if auth:
 
 
 @app.before_request
-def auth_check() -> None:
+def auth_check():
     """Check if the request requires auth."""
     i_list = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if not auth:
         return
-    if auth.require_auth(request.path, i_list):
+    if not auth.require_auth(request.path, i_list):
         return
     if not auth.authorization_header(request):
         abort(401)
