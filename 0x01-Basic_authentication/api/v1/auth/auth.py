@@ -3,7 +3,7 @@
 from typing import TypeVar
 
 from flask import request
-from typing_extensions import List
+from typing import List
 
 
 class Auth:
