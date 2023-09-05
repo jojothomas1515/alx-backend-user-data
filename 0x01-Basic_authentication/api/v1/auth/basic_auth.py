@@ -49,12 +49,13 @@ class BasicAuth(Auth):
             self,
             decoded_base64_authorization_header: str) -> (str, str):
         """Extract user credentials method."""
+        ret = (None, None)
         if decoded_base64_authorization_header is None:
-            return None
+            return ret
         elif type(decoded_base64_authorization_header) != str:
-            return None
+            return ret
         elif ":" not in decoded_base64_authorization_header:
-            return None
+            return ret
 
         email, password = decoded_base64_authorization_header.split(":")
         return (email, password)
