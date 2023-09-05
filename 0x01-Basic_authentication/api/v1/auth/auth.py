@@ -21,8 +21,14 @@ class Auth:
             return True
         elif len(excluded_paths) == 0:
             return True
-        elif path in excluded_paths:
-            return False
+
+        if path.endswith("/"):
+            if path in excluded_paths:
+                return False
+        else:
+            n_path = f"{path}/"
+            if n_path in excluded_paths:
+                return False
 
         return True
 
