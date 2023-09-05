@@ -24,7 +24,7 @@ class BasicAuth(Auth):
         if len(res) == 2:
             try:
                 base64.b64decode(res[1].encode())
-                return res[1].encode()
+                return res[1]
             except base64.binascii.Error:
-                return base64.b64encode(res[1].encode())
+                return base64.b64encode(res[1].encode()).decode()
         return None
