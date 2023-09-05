@@ -2,7 +2,7 @@
 """Authentication module."""
 from typing import TypeVar
 
-from flask import request
+from flask import request, Request
 from typing import List
 
 
@@ -32,14 +32,17 @@ class Auth:
 
         return True
 
-    def authorization_header(self, request=None) -> str:
+    def authorization_header(self, request: Request = None) -> str:
         """Processes request and check for auth headers
 
         Args:
               request: request object
         Return: header if it available or None
         """
-        return None
+        if request is None:
+            return None
+
+        return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Get the current user from the request object.
