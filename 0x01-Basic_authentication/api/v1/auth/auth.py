@@ -17,7 +17,14 @@ class Auth:
             excluded_paths: path that should be ignored
         Returns: True if the path requires auth
         """
-        return False
+        if path is None or excluded_paths is None:
+            return True
+        elif len(excluded_paths) == 0:
+            return True
+        elif path in excluded_paths:
+            return False
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """Processes request and check for auth headers
