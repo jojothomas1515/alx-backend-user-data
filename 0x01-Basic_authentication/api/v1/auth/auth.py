@@ -29,7 +29,7 @@ class Auth:
         pattern = re.compile(r"{}(/|\*)?$".format(path))
         for p in excluded_paths:
             if re.match(pattern, p):
-                return True
+                return False
 
         return True
 
