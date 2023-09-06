@@ -23,17 +23,13 @@ class Auth:
         elif len(excluded_paths) == 0:
             return True
 
+        if path.endswith("/"):
+            path = path[:-1]
+
         pattern = re.compile(r"{}(/|\*)?$".format(path))
         for p in excluded_paths:
-            if re.match(p):
+            if re.match(pattern, p):
                 return True
-        if path.endswith("/"):
-            if path in excluded_paths:
-                return False
-        else:
-            n_path = f"{path}/"
-            if n_path in excluded_paths:
-                return False
 
         return True
 
