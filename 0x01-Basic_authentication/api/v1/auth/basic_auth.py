@@ -10,8 +10,8 @@ class BasicAuth(Auth):
     """Basic authentication class."""
 
     def extract_base64_authorization_header(
-        self,
-        authorization_header: str
+            self,
+            authorization_header: str
     ) -> str:
         """Extract base64 authorization header.
 
@@ -42,7 +42,7 @@ class BasicAuth(Auth):
             return None
 
         try:
-            return base64.b64decode(base64_authorization_header.encode())\
+            return base64.b64decode(base64_authorization_header.encode()) \
                 .decode("utf-8")
         except base64.binascii.Error:
             return None
@@ -87,7 +87,6 @@ class BasicAuth(Auth):
         """
         auth_h = self.authorization_header(request)
         b64_auth_h = self.extract_base64_authorization_header(auth_h)
-        db64_auth_h =  self.decode_base64_authorization_header(b64_auth_h)
+        db64_auth_h = self.decode_base64_authorization_header(b64_auth_h)
         email, password = self.extract_user_credentials(db64_auth_h)
         return self.user_object_from_credentials(email, password)
-
