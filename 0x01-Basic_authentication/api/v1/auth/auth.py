@@ -4,6 +4,7 @@ from typing import TypeVar
 
 from flask import request
 from typing import List
+import re
 
 
 class Auth:
@@ -22,6 +23,10 @@ class Auth:
         elif len(excluded_paths) == 0:
             return True
 
+        pattern = re.compile(r"{}(/|\*)?$".format(path))
+        for p in excluded_paths:
+            if re.match(p):
+                return True
         if path.endswith("/"):
             if path in excluded_paths:
                 return False
