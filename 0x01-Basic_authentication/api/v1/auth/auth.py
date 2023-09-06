@@ -26,9 +26,15 @@ class Auth:
         if path.endswith("/"):
             path = path[:-1]
 
-        pattern = re.compile(r"{}(/|\*)?$".format(path))
+        slash_match = re.compile(r"{}/?$".format(path))
         for p in excluded_paths:
-            if re.match(pattern, p):
+            glob_match = re.compile(r"\*$")
+
+            if re.match(glob_match, p):
+                n_p = re.compile("{}.*".format(p[:-1]))
+                if re.match(n_p, path):
+                    return False
+            if re.match(slash_match, p):
                 return False
 
         return True
