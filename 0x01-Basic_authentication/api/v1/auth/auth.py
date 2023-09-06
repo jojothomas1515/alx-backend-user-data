@@ -30,7 +30,7 @@ class Auth:
         for p in excluded_paths:
             glob_match = re.compile(r".*\*$")
             if re.match(glob_match, p):
-                n_p = re.compile(r"{}".format(p))
+                n_p = re.compile(r"{}\w*".format(p[:-1]))
                 if re.match(n_p, path):
                     return False
             if re.match(slash_match, p):
