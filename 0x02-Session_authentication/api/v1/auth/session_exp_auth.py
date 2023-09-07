@@ -4,7 +4,6 @@
 from api.v1.auth.session_auth import SessionAuth
 import os
 from datetime import datetime
-from typing import Dict
 
 
 class SessionExpAuth(SessionAuth):
@@ -37,7 +36,7 @@ class SessionExpAuth(SessionAuth):
 
         if not session_id:
             return None
-        s_dict: Dict = self.user_id_by_session_id.get(session_id)
+        s_dict = self.user_id_by_session_id.get(session_id)
         if not s_dict:
             return None
         if self.session_duration == 0:
