@@ -4,6 +4,7 @@
 from api.v1.auth.auth import Auth
 from typing import Dict
 import uuid
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -36,3 +37,13 @@ class SessionAuth(Auth):
             return None
 
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """Get the current user base on a cookie value."""
+        user = None
+        sess_id = self.session_cookie()
+        if sess_id:
+            user_id = self.user_id_for_session_id(sess_id)
+            if user_id:
+                user = User.get(user_id)
+        return user
