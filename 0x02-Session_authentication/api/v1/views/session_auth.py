@@ -18,18 +18,16 @@ def login_view():
     if not password or password == "":
         return jsonify({"error": "password missing"}), 400
 
-    try:
-        users = User.search({"email": email})
-    except KeyError:
-        return jsonify({"error": "no user found for this email"}), 404
-    for user in users:
-        if user.is_valid_password(password):
-            from api.v1.app import auth
-            sess_id = auth.create_session(user.id)
+    users = User.search({"email": email})
+    if len(users) > 0:
+        for user in users:
+            if user.is_valid_password(password):
+                from api.v1.app import auth
+                sess_id = auth.create_session(user.id)
 
-            res = make_response(jsonify(user.to_json()))
-            sess_name = os.getenv("SESSION_NAME")
-            res.set_cookie(sess_name, sess_id)
-            return res
-
-    return jsonify({"error": "wrong password"}), 401
+                res = make_response(jsonify(user.to_json()))
+                sess_name = os.getenv("SESSION_NAME")
+                res.set_cookie(sess_name, sess_id)
+                return res
+        return jsonify({"error": "wrong password"}), 401
+    return jsonify({"error": "no user found for this email"}), 404
