@@ -5,6 +5,7 @@ from typing import TypeVar
 from flask import request
 from typing import List
 import re
+import os
 
 
 class Auth:
@@ -64,3 +65,12 @@ class Auth:
         Return: User or None
         """
         return None
+
+    def session_cookie(self, request=None):
+        """Get session cookie."""
+
+        if not request:
+            return None
+
+        cookie_name = os.getenv("SESSION_NAME", "_my_session_id")
+        return request.cookies.get(cookie_name)
