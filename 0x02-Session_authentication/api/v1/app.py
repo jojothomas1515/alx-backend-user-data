@@ -38,10 +38,12 @@ def auth_check():
         abort(403)
         return None
 
+
 @app.before_request
 def process_current_user():
     """Get current user from request."""
     request.current_user = auth.current_user(request)
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
