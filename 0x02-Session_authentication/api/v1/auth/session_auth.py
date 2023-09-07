@@ -5,6 +5,7 @@ from api.v1.auth.auth import Auth
 from typing import Dict
 import uuid
 from models.user import User
+import os
 
 
 class SessionAuth(Auth):
@@ -47,3 +48,19 @@ class SessionAuth(Auth):
             if user_id:
                 user = User.get(user_id)
         return user
+
+    def destroy_session(self, request=None) -> bool:
+        """Destroy user session."""
+        if not request:
+            return False
+            sess_name = os.getenv("SESSION_NAME")
+        if not sess_name:
+            return False
+        sess_id = request.cookies.get(sess_name)
+        if not sess_id:
+            return False
+        if not self.user_id_for_session_id(sess_id):
+            return False
+
+        del self.user_id_by_session_id[sess_id]
+        return True
