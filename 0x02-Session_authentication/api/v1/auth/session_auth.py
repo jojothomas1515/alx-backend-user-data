@@ -41,7 +41,7 @@ class SessionAuth(Auth):
     def current_user(self, request=None):
         """Get the current user base on a cookie value."""
         user = None
-        sess_id = self.session_cookie()
+        sess_id = self.session_cookie(request)
         if sess_id:
             user_id = self.user_id_for_session_id(sess_id)
             if user_id:
