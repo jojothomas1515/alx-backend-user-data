@@ -53,12 +53,8 @@ class SessionAuth(Auth):
         """Destroy user session."""
         if not request:
             return False
-            sess_name = os.getenv("SESSION_NAME")
-        if not sess_name:
-            return False
+        sess_name = os.getenv("SESSION_NAME")
         sess_id = request.cookies.get(sess_name)
-        if not sess_id:
-            return False
         if not self.user_id_for_session_id(sess_id):
             return False
 
