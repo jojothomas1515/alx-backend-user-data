@@ -6,6 +6,7 @@
 	],
 	"settings": {
 		"editor.indentSize": "tabSize",
-		"editor.tabSize": 4
+		"editor.tabSize": 4,
+		"editor.formatOnSave": false
 	}
 }
