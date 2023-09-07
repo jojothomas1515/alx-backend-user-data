@@ -22,6 +22,7 @@ class SessionExpAuth(SessionAuth):
         self.session_duration = duration
 
     def create_session(self, user_id=None) -> str:
+        """Create session with dict object."""
         sess_id = super().create_session(user_id)
         if not sess_id:
             return None
