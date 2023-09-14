@@ -46,7 +46,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs: Dict) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """Find us by the filter args passed
         Args:
             kwargs: keyword args passed
@@ -54,12 +54,12 @@ class DB:
         """
         if not kwargs:
             raise InvalidRequestError
-        user: User = self._session.query(User).filter_by(**kwargs).first()
+        user = self._session.query(User).filter_by(**kwargs).first()
         if not user:
             raise NoResultFound
         return user
 
-    def update_user(self, user_id: int, **kwargs: Dict) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """Update user if it exist in the database.
 
         Args:
