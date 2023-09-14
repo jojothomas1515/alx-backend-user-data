@@ -52,9 +52,8 @@ class DB:
             kwargs: keyword args passed
         Return: User object
         """
-        for k in kwargs.keys():
-            if k != "id" and k != "email":
-                raise InvalidRequestError
+        if not kwargs:
+            raise InvalidRequestError
         user: User = self._session.query(User).filter_by(**kwargs).first()
         if not user:
             raise NoResultFound
