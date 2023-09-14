@@ -8,6 +8,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
+from typing import Dict
 
 
 class DB:
@@ -44,7 +45,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs: dict) -> User:
+    def find_user_by(self, **kwargs: Dict) -> User:
         """Find us by the filter args passed
         Args:
             kwargs: keyword args passed
@@ -56,5 +57,4 @@ class DB:
         user = self._session.query(User).filter_by(**kwargs).first()
         if not user:
             raise NoResultFound
-
         return user
