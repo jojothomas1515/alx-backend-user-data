@@ -15,7 +15,7 @@ def _hash_password(password: str) -> bytes:
     Return: hashed_password bytes
     """
 
-    salt = bcrypt.gensalt()
+    salt = bcrypt.gensalt(rounds=12)
     return bcrypt.hashpw(password.encode("utf-8"), salt)
 
 
