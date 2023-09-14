@@ -53,8 +53,7 @@ class DB:
         for k in kwargs.keys():
             if k != "id" and k != "email":
                 raise InvalidRequestError
-        user = self._session.get(User, kwargs)
-
+        user = self._session.query(User).filter_by(**kwargs).first()
         if not user:
             raise NoResultFound
 
