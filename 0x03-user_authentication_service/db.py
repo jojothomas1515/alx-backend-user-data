@@ -4,8 +4,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
 from typing import Dict
@@ -58,3 +58,14 @@ class DB:
         if not user:
             raise NoResultFound
         return user
+
+    def update_user(self, user_id: int, **kwargs: Dict) -> None:
+        """Update user if it exist in the database.
+
+        Args:
+            user_id: id to the user to update.
+        Return: None.
+        """
+        user = self.find_user_by(id=user_id)
+        user.__dict__.update(kwargs)
+        self._session.commit()
