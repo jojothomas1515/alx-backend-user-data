@@ -19,7 +19,8 @@ print(user.id)
 print(user.hashed_password)
 print(user.email)
 try:
-    my_db.update_user(user.id, hashed_password='NewPwd')
+    my_db.update_user(user.id, hashed_password='NewPwd',
+                      email="jojothomas@dsdksl.com")
     user = my_db.find_user_by(id=user.id)
     print("Password updated")
     print(user.hashed_password)
