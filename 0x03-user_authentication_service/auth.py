@@ -36,14 +36,10 @@ class Auth:
             password: new user password
         Return: User object
         """
-        user: Union[User | None]
         try:
             user = self._db.find_user_by(email=email)
-        except NoResultFound:
-            user = None
-
-        if user:
             raise ValueError(f"User ${email} already exists")
-        hashed_password = _hash_password(password).decode("utf-8")
-        user = self._db.add_user(email, hashed_password)
-        return user
+        except NoResultFound:
+            hashed_password = _hash_password(password).decode("utf-8")
+            user = self._db.add_user(email, hashed_password)
+            return user
