@@ -71,15 +71,3 @@ class DB:
         for k, v in kwargs.items():
             setattr(user, k, v)
         self._session.commit()
-
-    def _hash_password(self, password: str) -> bytes:
-        """Hash passed password string.
-
-        Args:
-            password: to be hashed
-        Return: hashed_password bytes
-        """
-
-        salt = bcrypt.gensalt()
-        password = bcrypt.hashpw(password.encode(), salt)
-        return password
