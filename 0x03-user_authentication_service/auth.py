@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Auth module."""
 from sqlalchemy.orm.exc import NoResultFound
-
+from uuid
 from db import DB
 import bcrypt
 from user import User
@@ -49,3 +49,7 @@ class Auth:
         except NoResultFound:
             return False
         return False
+
+    def _generate_uuid() -> str:
+        """Generate uuid."""
+        return str(uuid.uuid4())
