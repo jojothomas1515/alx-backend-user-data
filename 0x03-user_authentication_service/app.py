@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Flask app module."""
 
-from flask import Flask, jsonify, request, redirect
-import flask
+from flask import Flask, jsonify, request, redirect, make_response
 from auth import Auth
 
 AUTH = Auth()
@@ -46,13 +45,17 @@ def login():
 def logout():
     """Logout route function."""
     session_id = request.cookies.get("session_id")
+    if not session_id:
+        return redirect("/")
 
     user = AUTH.get_user_from_session_id(session_id)
     if user:
         AUTH.destroy_session(user.id)
         return redirect("/")
 
-    return redirect("/", 403)
+    res = make_response()
+    res.status_code = 403
+    return res
 
 
 if __name__ == "__main__":
