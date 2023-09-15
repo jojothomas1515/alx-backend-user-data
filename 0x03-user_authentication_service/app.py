@@ -70,7 +70,7 @@ def profile():
 
 
 @app.route("/reset_password", strict_slashes=False, methods=["POST"])
-def get_reset_password_token():
+def update_password():
     """reset password route function."""
     email = request.form.get("email")
 
@@ -82,6 +82,7 @@ def get_reset_password_token():
     except ValueError:
         abort(403)
 
+
 @app.route("/reset_password", strict_slashes=False, methods=["PUT"])
 def get_reset_password_token():
     """reset password route function."""
@@ -89,7 +90,7 @@ def get_reset_password_token():
     reset_token = request.form.get("reset_token")
     new_password = request.form.get("new_password")
 
-    if not email or not  reset_token or not new_password:
+    if not email or not reset_token or not new_password:
         abort(403)
     try:
         AUTH.update_password(reset_token, new_password)
