@@ -30,7 +30,7 @@ def new_user():
         return jsonify({"message": "email already registered"})
 
 
-@app.route("/sessions", strict_slashes=False, methods=["POST"])
+@app.route("/sessions", methods=["POST"])
 def login():
     """Login route for auth ."""
     email = request.form.get("email")
