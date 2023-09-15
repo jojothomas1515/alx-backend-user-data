@@ -35,10 +35,12 @@ def login():
     email = request.form.get("email")
     password = request.form.get("password")
     if not AUTH.valid_login(email, password):
-        flask.abort(401)
+        abort(401)
         return
     session_id = AUTH.create_session(email)
-    return jsonify({"email": email, "message": "logged in"})
+    response = make_response(jsonify({"email": email, "message": "logged in"}))
+    response.set_cookie("session_id", session_id)
+    return response
 
 
 @app.route("/sessions", strict_slashes=False, methods=["DELETE"])
@@ -50,8 +52,7 @@ def logout():
     user = AUTH.get_user_from_session_id(session_id)
     if user:
         AUTH.destroy_session(user.id)
-        return redirect("/")
-
+        return redirect("/", 200)
     abort(403)
 
 
@@ -64,7 +65,7 @@ def profile():
 
     user = AUTH.get_user_from_session_id(session_id)
     if user:
-        return jsonify({"email": user.id})
+        return jsonify({"email": user.id}), 200
     abort(403)
 
 
