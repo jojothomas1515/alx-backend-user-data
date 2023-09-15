@@ -64,7 +64,7 @@ class Auth:
                              session_id=_generate_uuid())
         return user.session_id
 
-    def get_user_from_session_id(self, session_id: str) -> Union[User | None]:
+    def get_user_from_session_id(self, session_id: str) -> User:
         """Get user from session id"""
 
         try:
