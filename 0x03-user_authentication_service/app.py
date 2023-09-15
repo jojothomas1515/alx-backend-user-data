@@ -4,7 +4,6 @@
 from flask import Flask, jsonify, request, abort
 from auth import Auth
 
-
 AUTH = Auth()
 
 app = Flask(__name__)
@@ -29,16 +28,16 @@ def new_user():
     except ValueError:
         return jsonify({"message": "email already registered"})
 
+
 @app.route("/sessions", strict_slashes=False, methods=["POST"])
 def login():
-    """Login route"""
+    """Login route for auth ."""
     email = request.form.get("email")
     password = request.form.get("password")
     if not AUTH.valid_login(email, password):
         abort(401)
     AUTH.create_session(email)
     return jsonify({"email": email, "message": "logged in"})
-
 
 
 if __name__ == "__main__":
