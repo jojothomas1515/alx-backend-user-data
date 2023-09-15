@@ -46,8 +46,6 @@ def login():
 def logout():
     """Logout route function."""
     session_id = request.cookies.get("session_id")
-    if not session_id:
-        return redirect("/")
 
     user = AUTH.get_user_from_session_id(session_id)
     if user:
