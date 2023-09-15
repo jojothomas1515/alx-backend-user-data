@@ -30,7 +30,7 @@ def new_user():
         return jsonify({"message": "email already registered"})
 
 
-@app.route("/sessions", methods=["POST"])
+@app.route("/sessions", strict_slashes=False, methods=["POST"])
 def login():
     """Login route for auth ."""
     email = request.form.get("email")
@@ -38,7 +38,7 @@ def login():
     if not AUTH.valid_login(email, password):
         flask.abort(401)
         return
-    AUTH.create_session(email)
+    session_id = AUTH.create_session(email)
     return jsonify({"email": email, "message": "logged in"})
 
 
